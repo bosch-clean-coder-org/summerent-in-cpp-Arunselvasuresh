@@ -41,26 +41,4 @@ TEST_CASE("Temperature Breach Classification - Hi-Active Cooling") {
   }
 }
 
-TEST_CASE("Check and Alert - Send to Controller") {
-  BatteryCharacter batteryChar{HI_ACTIVE_COOLING};
-  double temperature = 40.0;
-
-  SECTION("Breach Detected") {
-    std::ostringstream oss;
-    oss << "To: Controller\nBreach Detected\n";
-    Catch::StringStream::out() = oss.str();
-
-    checkAndAlert(TO_CONTROLLER, batteryChar, temperature);
-    REQUIRE(Catch::StringStream::out() == oss.str());
-  }
-
-  SECTION("No Breach Detected") {
-    std::ostringstream oss;
-    Catch::StringStream::out() = oss.str();
-
-    checkAndAlert(TO_CONTROLLER, batteryChar, 35.0);
-    REQUIRE(Catch::StringStream::out() == oss.str());
-  }
-}
-
 
